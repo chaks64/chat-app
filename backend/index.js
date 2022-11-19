@@ -4,9 +4,12 @@ const cors = require("cors");
 
 const app = express();
 require("dotenv").config();
+const userRoutes = require("./routes/userRoutes")
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/auth",userRoutes);
 
 mongoose.connect(process.env.MONGO_URL, {
     useNewURLParser:true,
