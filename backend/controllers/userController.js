@@ -21,34 +21,62 @@ module.exports.register = async (req, res, next) => {
     });
     delete user.password;
     return res.json({ status: true, user });
-  } 
-  
-  catch (error) {
-    next(error)
+  } catch (error) {
+    next(error);
+  }
+};
+
+//-----Login Controller-----//
+module.exports.login = async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.json({ msg: "Incorrect Username or Password", status: false });
+    }
+
+    const isPasswordValid = await bycrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.json({ msg: "Incorrect Username or Password", status: false });
+    }
+
+    delete user.password;
+    return res.json({ status: true, user });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//-----Set avatar controller----//
+module.exports.setAvatar = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const image = req.body.image;
+
+    const userData = await User.findByIdAndUpdate(userId, {
+      isAvatar: true,
+      avatar: image,
+    });
+    return res.json({ isSet: userData.isAvatar, image: userData.avatar });
+  } catch (error) {
+    next(error);
   }
 };
 
 
-//-----Login Controller-----//
-module.exports.login = async (req, res, next) => {
-    try {
-      const { username, password } = req.body;
-      const user = await User.findOne({ username });
-  
-      if (!user) {
-        return res.json({ msg: "Incorrect Username or Password", status: false });
-      }
-  
-      const isPasswordValid = await bycrypt.compare(password, user.password)
-      if (!isPasswordValid) {
-          return res.json({ msg: "Incorrect Username or Password", status: false });
-      }
-      
-      delete user.password;
-      return res.json({ status: true, user });
-    } 
-    
-    catch (error) {
-      next(error)
-    }
-  };
+//------all users----//
+module.exports.allUsers = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const users = await User.find({ _id: { $ne: req.params.id } }).select([
+      "email",
+      "username",
+      "avatar",
+      "_id",
+    ]);
+    return res.json(users)
+  } catch (error) {
+    next(error);
+  }
+};

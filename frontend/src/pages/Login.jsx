@@ -14,6 +14,12 @@ function Login() {
     password: "",
   });
 
+  useEffect(() =>{
+    if(localStorage.getItem("chat-app")){
+      navigate('/')
+    }
+  }, [])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(handleValidation()){
@@ -27,8 +33,10 @@ function Login() {
             toast.error(data.msg, toastOptions);
         }
         if(data.status === true){
-            localStorage.setItem('chat-app', data.user);
+          localStorage.setItem('chat-app', JSON.stringify(data.user));
             navigate("/");
+        } else{
+          toast.error("Error while setting the avatar, Please try later", toastOptions)
         }
     }
   };
