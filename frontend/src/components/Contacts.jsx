@@ -9,11 +9,10 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
 
   useEffect(() => {
     const data =  JSON.parse(localStorage.getItem("chat-app"));
-    console.log(currentUser);
+    console.log('Contacts comp:',currentUser);
     // if (currentUser) {
       setUserImage(data.avatar);
       setUserName(data.username);
-    //   setUserSelected
     // }
   }, []);
 
