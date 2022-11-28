@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import Picker from "emoji-picker-react";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import { IoMdSend } from "react-icons/io";
@@ -102,7 +100,7 @@ const Container = styled.div`
     background-color: #ffffff34;
     input {
       width: 90%;
-      height: 60%;
+      /* height: 60%; */
       background-color: transparent;
       color: white;
       border: none;
