@@ -18,7 +18,7 @@ function Login() {
     if(localStorage.getItem("chat-app")){
       navigate('/')
     }
-  }, [])
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,9 +35,7 @@ function Login() {
         if(data.status === true){
           localStorage.setItem('chat-app', JSON.stringify(data.user));
             navigate("/");
-        } else{
-          toast.error("Error while setting the avatar, Please try later", toastOptions)
-        }
+        } 
     }
   };
 
