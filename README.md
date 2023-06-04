@@ -7,22 +7,35 @@ Mongodb
 Both should be installed and make sure mongodb is running.
 
 git clone [https://github.com/](https://github.com/chaks64/chat-app.git)
+
 cd chat-app-react-nodejs
+
 Now rename env files from .env.example to .env
 
 cd public
+
 mv .env.example .env
+
 cd ..
+
 cd server
+
 mv .env.example .env
+
 cd ..
+
 Now install the dependencies
 
 cd server
+
 yarn
+
 cd ..
+
 cd public
+
 yarn
+
 We are almost done, Now just start the development server.
 
 For Frontend.
